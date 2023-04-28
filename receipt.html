@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt Making/ Updation</title>
+    <link rel="stylesheet" type="text/css" href="style1.css">
+    <style>label{display: inline-block; width: 80px};
+    input,select{width: 120px;}
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="mm">
+    <label>Name</label><input id="Namebox" type="text">
+    <br><br>
+    <label>Email</label><input id="Emailbox" type="text">
+    <br><br>
+    <label>Package</label><input id="Packagebox" type="text">
+    <br><br>
+    <label>Gender</label>
+    <select id="Genbox">
+        <option value ="Male">Male</option>
+        <option value="Female">Female</option>
+    </select>
+</div>
+<br>
+    <hr>
+    <br>
+    <div class="mmm">
+    <button id="Insbtn">INSERT</button>
+    <button id="Selbtn">SELECT</button>
+    <button id="Updbtn">UPDATE</button>
+</div>
+</div>
+</body>
+</html>
+
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCVhDOu2lnW2u5HN0t9vbtrIt4syDEGV08",
+      authDomain: "receipt-d05c9.firebaseapp.com",
+      projectId: "receipt-d05c9",
+      storageBucket: "receipt-d05c9.appspot.com",
+      messagingSenderId: "53257700306",
+      appId: "1:53257700306:web:a2bd1c589b6bf62c91be0b"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+  
+
+    import{getDatabase, ref, set, get, child, update}from"https://www.gstatic.com/firebasejs/9.20.0/firebase-database.js";
+
+    const db = getDatabase(app);
+    var namebox = document.getElementById("Namebox");
+    var emailbox = document.getElementById("Emailbox");
+    var packagebox = document.getElementById("Packagebox");
+    var genbox = document.getElementById("Genbox");
+
+    var insBtn = document.getElementById("Insbtn");
+    var selBtn = document.getElementById("Selbtn");
+    var updBtn = document.getElementById("Updbtn");
+
+    function InsertData(){
+        set(ref(db, "TheUsers/"+emailbox.value),{
+            NameOfUsr: namebox.value,
+            EmailUsr: emailbox.value,
+            Package: packagebox.value
+        })
+        .then(() =>{
+            alert("data stored successfuly");
+        })
+        .catch((error) => {
+            alert("unsuccessful, error"+error);
+        });
+    }
+
+    insBtn.addEventListener('click', InsertData);
+
+
+  </script>
